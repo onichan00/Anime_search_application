@@ -1,7 +1,5 @@
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.net.URI;
+import org.json.*;
+import java.net.*;
 import java.net.http.*;
 import java.util.Scanner;
 
@@ -9,7 +7,6 @@ import java.util.Scanner;
 public class Main {
     public static String link = "https://api.jikan.moe/v4/anime";
     public static String anime = userInputSearch();
-    public static int userAnimeId = 0;
 
     public static void main(String[] args) {
         requestSearch();
@@ -46,7 +43,6 @@ public class Main {
 
         String input = scan.nextLine().replaceAll("\\s+", "/");
 
-        System.out.println(input);
         return input;
     }
 
@@ -54,7 +50,6 @@ public class Main {
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Which anime would you like to view ?(please enter the ID)");
-
 
         requestAnime(scan.nextInt());
     }
@@ -69,8 +64,9 @@ public class Main {
         JSONObject response = new JSONObject(responseBody);
 
         JSONObject dataObject = response.getJSONObject("data");
-            id = dataObject.getInt("mal_id");
-            url = dataObject.getString("url");
+        url = dataObject.getString("url");
+
+        id = dataObject.getInt("mal_id");
 
             titleArray = dataObject.getJSONArray("titles");
 
@@ -85,7 +81,7 @@ public class Main {
 
             }
 
-        return id+url+type+title;
+        return url+id+type+title;
     }
 
     public static String parseSearch(String responseBody){
@@ -100,16 +96,18 @@ public class Main {
         JSONArray dataArray = response.getJSONArray("data");
 
         for (int i = 0; i < dataArray.length(); i++) {
-            id = dataArray.getJSONObject(i).getInt("mal_id");
             url = dataArray.getJSONObject(i).getString("url");
-
-            System.out.println(id);
-            System.out.println(" ");
-            System.out.println(url);
-             titleArray = dataArray.getJSONObject(i).getJSONArray("titles");
-
+            id = dataArray.getJSONObject(i).getInt("mal_id");
 
             System.out.println("--------------");
+            System.out.println("url: "+url);
+            System.out.println(" ");
+            System.out.println("id: "+id);
+            System.out.println(" ");
+
+
+            titleArray = dataArray.getJSONObject(i).getJSONArray("titles");
+
             for (int j = 0; j < titleArray.length(); j++) {
 
                 System.out.println(titleArray.getJSONObject(j).getString("type"));
@@ -118,6 +116,6 @@ public class Main {
             }
 
         }
-        return id+url+type+title;
+        return url+id+type+title;
     }
 }
