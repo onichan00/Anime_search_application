@@ -72,22 +72,19 @@ public class Main {
 
 
             System.out.println("--------------");
-//            title = titleArray.getJSONObject(i).getString("type");
             for (int j = 0; j < titleArray.length(); j++) {
-//            type = titleArray.getJSONObject(j).getString("type");
 
-                System.out.println(titleArray.getJSONObject(j).getString("type"));
-                System.out.println(titleArray.getJSONObject(j).getString("title"));
-//                title = titleArray.getJSONObject(j).getString("title");
+                type = titleArray.getJSONObject(j).getString("type");
+                System.out.println(type);
+                title = titleArray.getJSONObject(j).getString("title");
+                System.out.println(title);
 
             }
 
-        return null;
-
+        return id+url+type+title;
     }
 
     public static String parseSearch(String responseBody){
-
         int id = 0;
         String title = "";
         String type = "";
@@ -102,25 +99,21 @@ public class Main {
             id = dataArray.getJSONObject(i).getInt("mal_id");
             url = dataArray.getJSONObject(i).getString("url");
 
+            System.out.println(id);
+            System.out.println(" ");
+            System.out.println(url);
              titleArray = dataArray.getJSONObject(i).getJSONArray("titles");
 
 
             System.out.println("--------------");
-//            title = titleArray.getJSONObject(i).getString("type");
             for (int j = 0; j < titleArray.length(); j++) {
-//            type = titleArray.getJSONObject(j).getString("type");
 
                 System.out.println(titleArray.getJSONObject(j).getString("type"));
                 System.out.println(titleArray.getJSONObject(j).getString("title"));
-//                title = titleArray.getJSONObject(j).getString("title");
 
             }
 
         }
-
-
         return id+url+type+title;
-
-
     }
 }
