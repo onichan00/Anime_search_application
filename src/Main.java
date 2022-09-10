@@ -5,6 +5,7 @@ import java.net.URI;
 import java.net.http.*;
 import java.util.Scanner;
 
+
 public class Main {
     public static String link = "https://api.jikan.moe/v4/anime";
     public static String anime = userInputSearch();
@@ -43,7 +44,10 @@ public class Main {
 
         System.out.println("What anime are you looking for?");
 
-        return scan.nextLine();
+        String input = scan.nextLine().replaceAll("\\s+", "/");
+
+        System.out.println(input);
+        return input;
     }
 
     public static void userInputAnime(){
